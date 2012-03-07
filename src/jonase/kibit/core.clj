@@ -38,7 +38,7 @@
     (when alt
       {:expr expr
        :rule rule
-       :alt (try (seq alt) (catch java.lang.IllegalArgumentException iae alt))
+       :alt (try (if (string? alt) alt (seq alt)) (catch java.lang.IllegalArgumentException iae alt))
        :line (-> expr meta :line)})))
 
 ;; Loop over the rule set, recursively applying unification to find the best
