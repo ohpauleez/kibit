@@ -7,5 +7,6 @@
     (if (not ?x) ?y ?z) (if-not ?x ?y ?z)
     (when (not ?x) . ?y) (when-not ?x ?y)
     (if true ?x . ?y) ?x
-    (when true ?x) ?x}) ; Maybe this should be (do ?x)
+    (when true ?x) ?x ; Maybe this should be (do ?x)
+    (when-not true ?x) "Nothing - remove this dead code"})
 
