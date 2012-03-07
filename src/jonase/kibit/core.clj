@@ -87,6 +87,6 @@
   ([reader]
      (check-file reader all-rules))
   ([reader rules]
-     (keep check-form
+     (keep check-expr
            (mapcat expr-seq (read-ns (LineNumberingPushbackReader. reader))))))
 
