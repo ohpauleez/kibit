@@ -56,6 +56,10 @@
                    new-alt-map)
             alt-map)))))
 
+(declare expr-seq)
+(defn check-expr [expr]
+  (clojure.walk/walk #(or (-> % check-form :alt) %) check-form expr))
+
 ;; Building the parsable forms
 ;; ---------------------------
 ;;
