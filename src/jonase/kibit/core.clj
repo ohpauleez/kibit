@@ -42,9 +42,9 @@
        :line (-> expr meta :line)})))
 
 ;; Loop over the rule set, recursively applying unification to find the best
-;; possible alternative
+;; possible alternative for the outermost form
 (defn check-form
-  "Given an expression/line/form, return a map containing the alternative suggestion info, or `nil`"
+  "Given the outermost form of an expr/form, return a map containing the alternative suggestion info, or `nil`"
   ([expr]
      (check-form expr all-rules))
   ([expr rules]
@@ -57,7 +57,10 @@
             alt-map)))))
 
 (declare expr-seq)
-(defn check-expr [expr]
+;; This walks across all the forms within a seq'd form/expression, checking each inner form
+(defn check-expr
+  "Given a full expression/form-of-forms/form, a map containing the alternative suggestion info, or `nil`"
+  [expr]
   (clojure.walk/walk #(or (-> % check-form :alt) %) check-form expr))
 
 ;; Building the parsable forms
