@@ -62,7 +62,7 @@
 (declare expr-seq)
 ;; This walks across all the forms within a seq'd form/expression, checking each inner form
 (defn check-expr
-  "Given a full expression/form-of-forms/form, a map containing the alternative suggestion info, or `nil`"
+  "Given a full expression/form-of-forms/form, return a map containing the alternative suggestion info, or `nil`"
   [expr]
   (->
     (clojure.walk/walk #(or (-> % check-form :alt) %) check-form expr)
