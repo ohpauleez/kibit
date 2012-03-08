@@ -38,7 +38,10 @@
     (when alt
       {:expr expr
        :rule rule
-       :alt (try (if (string? alt) alt (seq alt)) (catch java.lang.IllegalArgumentException iae alt))
+       :alt (if (or (string? alt)
+                    (not (sequential? alt)))
+                   alt
+                   (seq alt))
        :line (-> expr meta :line)})))
 
 ;; Loop over the rule set, recursively applying unification to find the best
@@ -61,7 +64,9 @@
 (defn check-expr
   "Given a full expression/form-of-forms/form, a map containing the alternative suggestion info, or `nil`"
   [expr]
-  (clojure.walk/walk #(or (-> % check-form :alt) %) check-form expr))
+  (->
+    (clojure.walk/walk #(or (-> % check-form :alt) %) check-form expr)
+    (assoc :expr expr)))
 
 ;; Building the parsable forms
 ;; ---------------------------
