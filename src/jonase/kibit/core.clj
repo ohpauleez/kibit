@@ -61,6 +61,7 @@
 
 (declare expr-seq)
 ;; This walks across all the forms within a seq'd form/expression, checking each inner form
+;; In the process, the original express gets munged in the return map, so we restore it for the return
 (defn check-expr
   "Given a full expression/form-of-forms/form, return a map containing the alternative suggestion info, or `nil`"
   [expr]
