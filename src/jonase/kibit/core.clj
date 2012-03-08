@@ -40,8 +40,8 @@
        :rule rule
        :alt (if (or (string? alt)
                     (not (sequential? alt)))
-                   alt
-                   (seq alt))
+              alt
+              (seq alt))
        :line (-> expr meta :line)})))
 
 ;; Loop over the rule set, recursively applying unification to find the best
